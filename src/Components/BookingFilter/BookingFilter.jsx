@@ -2,8 +2,16 @@ import React from 'react';
 import {
     Box, Grid, MenuItem, Select, FormControl,
     Button, Typography,
-    TextField
+    TextField,
+    Paper,
+    Stack
 } from '@mui/material';
+import {
+    Explore as ExploreIcon,
+    CardTravel as CardTravelIcon,
+    AttachMoney as AttachMoneyIcon,
+    Warning as WarningIcon
+} from '@mui/icons-material';
 import { Search } from '@mui/icons-material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -13,7 +21,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import worldImage from '../../assets/worldMap.jpg'
 import waterfallImage from '../../assets/waterfall.jpg'
-
+import whyChose from '../../assets/neum.jpg'
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 
 const activities = [
     {
@@ -143,9 +152,8 @@ export default function ResponsiveBookingFilter() {
                     <Typography variant="caption" color="textSecondary">
                         Guests
                     </Typography>
-                    <TextField type='number' size='small' />
+                    <TextField placeholder='How many guests you are ..?' type='number' size='small' />
                 </Box>
-
                 <Box sx={{ width: { xs: '100%', md: '250px' }, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Button
                         variant="contained"
@@ -165,6 +173,9 @@ export default function ResponsiveBookingFilter() {
                     </Button>
                 </Box>
             </Box>
+
+            {/* zad Kashmir Travel & Tour Agency in Pakistan */}
+
             <Box
                 sx={{
                     height: {
@@ -198,6 +209,8 @@ export default function ResponsiveBookingFilter() {
                     </Typography>
                 </Box>
             </Box>
+
+            {/* Craousels */}
 
             <Box sx={{
                 backgroundColor: '#f5f5f5',
@@ -301,6 +314,50 @@ export default function ResponsiveBookingFilter() {
                         </Box>
                     ))}
                 </Slider>
+            </Box>
+
+            {/* why choose us */}
+
+            <Button sx={{ backgroundColor: '#E5EEE4', color: '#388E3C', fontWeight: 'bold', padding: '10px 20px' }}>Why Choose</Button>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={2}>
+                    <Grid display='flex' justifyContent='center' size={{ md: 6, xs: 12 }}>
+                        <Box sx={{
+                            height: {
+                                md: '80vh',
+                                xs: 'auto'
+                            },
+                            width: {
+                                md: '80%',
+                                xs: '100%'
+                            },
+                            backgroundImage: `url(${whyChose})`, // Replace with your image path or URL
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                            display: 'flex', justifyContent: 'center',
+                            borderRadius: '10px',
+                            alignItems: 'end',
+                            mt: 3
+                        }}>
+
+                        </Box>
+                    </Grid>
+                    <Grid size={{ md: 6, xs: 12 }}>
+                        <Typography color='#2B7522' fontSize='30px' fontWeight='900'>
+                            Al-Rehman Tours for Your Kashmir Adventure?
+                        </Typography>
+                        <Box sx={{ display: 'flex', gap: '10px' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', width: '100px', backgroundColor: '#e5eee4', borderRadius: '50px' }}>
+                                <VerifiedUserIcon sx={{ fontSize: '60px', color: '#2b7522' }} />
+                            </Box>
+                            <Box>
+                                <Typography variant='h6' color='#2b7522' fontWeight='bold'>Expertise and Local Knowledge</Typography>
+                                <Typography color='gray' width='550px'>Our team of experienced guides and Kashmir locals ensures you explore hidden gems and authentic experiences that other tourists miss.</Typography>
+                            </Box>
+                        </Box>
+                    </Grid>
+                </Grid>
             </Box>
         </>
     );
