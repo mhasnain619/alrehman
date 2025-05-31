@@ -5,16 +5,30 @@ import { EffectFade, Autoplay } from 'swiper/modules';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import './slider.css';
+import img1 from '../../assets/arangkel.jpg'
+import img2 from '../../assets/download.jpg'
+import img3 from '../../assets/Kel-Neelum-Valley-1.jpg'
+import img4 from '../../assets/Kel-Neelum-Valley-4.webp'
 
 const slides = [
     {
-        img: 'https://picsum.photos/id/1018/1200/600',
+        img: img1,
         title: 'Your Journey Begins Here',
         subtitle: 'All Kashmir Tours Are Available',
     },
     {
-        img: 'https://picsum.photos/id/1015/1200/600',
+        img: img2,
         title: 'Explore Hidden Paradises',
+        subtitle: 'Nature, Peace & Adventure Await',
+    },
+    {
+        img: img3,
+        title: 'Explore Hidden Paradises',
+        subtitle: 'Nature, Peace & Adventure Await',
+    },
+    {
+        img: img4,
+        title: 'Kashmir Travel And Tour Agency In Pakistan',
         subtitle: 'Nature, Peace & Adventure Await',
     },
 ];

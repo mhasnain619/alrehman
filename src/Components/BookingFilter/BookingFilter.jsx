@@ -1,7 +1,8 @@
 import React from 'react';
 import {
     Box, Grid, MenuItem, Select, FormControl,
-    Button, Typography
+    Button, Typography,
+    TextField
 } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
@@ -119,8 +120,11 @@ export default function ResponsiveBookingFilter() {
                             sx={{ backgroundColor: 'white' }}
                         >
                             <MenuItem value="">Locations</MenuItem>
-                            <MenuItem value="location1">Location 1</MenuItem>
-                            <MenuItem value="location2">Location 2</MenuItem>
+                            <MenuItem value="location1">Adventure</MenuItem>
+                            <MenuItem value="location2">Beach</MenuItem>
+                            <MenuItem value="location2">Discovery</MenuItem>
+                            <MenuItem value="location2">Mountain Biking</MenuItem>
+                            <MenuItem value="location2">Tent Camping</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
@@ -134,6 +138,12 @@ export default function ResponsiveBookingFilter() {
                             slotProps={{ textField: { size: 'small', fullWidth: true } }}
                         />
                     </LocalizationProvider>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', mt: '5px', justifyContent: "center", width: { xs: '100%', md: '250px' } }}>
+                    <Typography variant="caption" color="textSecondary">
+                        Guests
+                    </Typography>
+                    <TextField type='number' size='small' />
                 </Box>
 
                 <Box sx={{ width: { xs: '100%', md: '250px' }, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -197,12 +207,7 @@ export default function ResponsiveBookingFilter() {
             }}>
                 <Slider {...settings}>
                     {[...activities, ...activities].map((item, index) => (
-                        <Box key={index} sx={{
-                            px: {
-                                md: 2,
-                                xs: 0
-                            }
-                        }}>
+                        <Box key={index}>
                             <Box sx={{
                                 backgroundColor: 'white',
                                 borderRadius: 4,
