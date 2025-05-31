@@ -1,218 +1,302 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Box, Grid, MenuItem, Select, FormControl,
-    Button, Typography, IconButton, Popover
+    Button, Typography
 } from '@mui/material';
-import { LocationOn, Event, Person, Search, Add, Remove } from '@mui/icons-material';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { Search } from '@mui/icons-material';
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import worldImage from '../../assets/worldMap.jpg'
+import waterfallImage from '../../assets/waterfall.jpg'
 
-export default function BookingFilter() {
-    const [location, setLocation] = useState('');
-    const [type, setType] = useState('');
-    const [date, setDate] = useState(new Date());
-    const [guests, setGuests] = useState({ adult: 0, youth: 0, children: 0 });
-    const [totalGuests, setTotalGuests] = useState(0);
-    const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleGuestsClick = (event) => {
-        setAnchorEl(event.currentTarget);
+const activities = [
+    {
+        title: 'Enjoy The Waterfalls',
+        emoji: '🌊',
+        description: 'Experience breathtaking waterfalls in Neelum Valley Azad Kashmir',
+        image: waterfallImage
+    },
+    {
+        title: 'Wildlife',
+        emoji: '🦌',
+        description: 'Discover diverse wildlife in the lush forests of Kashmir',
+        image: waterfallImage
+    },
+    {
+        title: 'Hiking',
+        emoji: '🥾',
+        description: 'Trek through scenic mountain trails with expert guides',
+        image: waterfallImage
+    },
+    {
+        title: 'Chair Lift Rides',
+        emoji: '🚡',
+        description: 'Soar above stunning landscapes on our safe chair lifts',
+        image: waterfallImage
+    },
+    {
+        title: 'Lake Views',
+        emoji: '🏞️',
+        description: 'Marvel at crystal-clear alpine lakes and their reflections',
+        image: waterfallImage
+    }
+];
+export default function ResponsiveBookingFilter() {
+
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 8000,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: false,
+        autoplaySpeed: 0,
+        cssEase: 'linear',
+        arrows: false,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1
+                }
+            }
+        ]
     };
-
-    const handleGuestsClose = () => {
-        setAnchorEl(null);
-        setTotalGuests(guests.adult + guests.youth + guests.children);
-    };
-
-    const open = Boolean(anchorEl);
-
-    const updateGuests = (type, increment) => {
-        setGuests((prev) => {
-            const newValue = increment ? prev[type] + 1 : Math.max(0, prev[type] - 1);
-            return { ...prev, [type]: newValue };
-        });
-    };
-
     return (
-        <Box
-            sx={{
-                backgroundColor: 'white',
-                borderRadius: 2,
-                boxShadow: 3,
-                p: 2,
-                mx: 'auto',
-                maxWidth: '90%',
-                display: 'flex',
-                alignItems: 'center',
-                marginTop: '20px'
-            }}
-        >
-            <Grid container spacing={2} alignItems="center">
-                {/* Location */}
-                <Grid item xs={12} sm={6} md={2.4}>
-                    <Box display="flex" alignItems="center">
-                        <LocationOn sx={{ color: 'green', mr: 1 }} />
-                        <Box>
-                            <Typography variant="caption" color="textSecondary">
-                                Location
-                            </Typography>
-                            <FormControl fullWidth size="small">
-                                <Select
-                                    value={location}
-                                    onChange={(e) => setLocation(e.target.value)}
-                                    displayEmpty
-                                    sx={{ fontWeight: 'bold' }}
-                                >
-                                    <MenuItem value="">Locations</MenuItem>
-                                    <MenuItem value="kashmir">Kashmir</MenuItem>
-                                    <MenuItem value="swat">Swat</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </Box>
-                </Grid>
+        <>
+            <Box
+                sx={{
+                    backgroundColor: 'white',
+                    borderRadius: 2,
+                    boxShadow: 3,
+                    p: 2,
+                    mx: 'auto',
+                    maxWidth: '1000px',
+                    marginTop: '20px',
+                    display: 'flex',
+                    gap: '10px',
+                    flexDirection: {
+                        xs: 'column',
+                        sm: 'row'
+                    },
+                }}
+            >
+                <Box sx={{ width: { xs: '100%', md: '250px' } }}>
+                    <Typography variant="caption" color="textSecondary">
+                        Location
+                    </Typography>
+                    <FormControl fullWidth size="small" variant="outlined">
+                        <Select
+                            defaultValue=""
+                            displayEmpty
+                            sx={{ backgroundColor: 'white' }}
+                        >
+                            <MenuItem value="">Locations</MenuItem>
+                            <MenuItem value="location1">Location 1</MenuItem>
+                            <MenuItem value="location2">Location 2</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{ width: { xs: '100%', md: '250px' } }}>
+                    <Typography variant="caption" color="textSecondary">
+                        Booking Type
+                    </Typography>
+                    <FormControl fullWidth size="small" variant="outlined">
+                        <Select
+                            defaultValue=""
+                            displayEmpty
+                            sx={{ backgroundColor: 'white' }}
+                        >
+                            <MenuItem value="">Locations</MenuItem>
+                            <MenuItem value="location1">Location 1</MenuItem>
+                            <MenuItem value="location2">Location 2</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{ width: { xs: '100%', md: '250px' } }}>
+                    <Typography variant="caption" color="textSecondary">
+                        Date From
+                    </Typography>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                            defaultValue={dayjs()}
+                            slotProps={{ textField: { size: 'small', fullWidth: true } }}
+                        />
+                    </LocalizationProvider>
+                </Box>
 
-                {/* Type */}
-                <Grid item xs={12} sm={6} md={2.4}>
-                    <Box display="flex" alignItems="center">
-                        <img src="/icons/booking-type.svg" alt="Type" width={24} style={{ marginRight: 8 }} />
-                        <Box>
-                            <Typography variant="caption" color="textSecondary">
-                                Type
-                            </Typography>
-                            <FormControl fullWidth size="small">
-                                <Select
-                                    value={type}
-                                    onChange={(e) => setType(e.target.value)}
-                                    displayEmpty
-                                    sx={{ fontWeight: 'bold' }}
-                                >
-                                    <MenuItem value="">Booking Type</MenuItem>
-                                    <MenuItem value="tour">Tour</MenuItem>
-                                    <MenuItem value="hotel">Hotel</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </Box>
-                </Grid>
-
-                {/* Date */}
-                <Grid item xs={12} sm={6} md={2.4}>
-                    <Box display="flex" alignItems="center">
-                        <Event sx={{ color: 'green', mr: 1 }} />
-                        <Box>
-                            <Typography variant="caption" color="textSecondary">
-                                Date From
-                            </Typography>
-                            <DatePicker
-                                selected={date}
-                                onChange={(date) => setDate(date)}
-                                dateFormat="dd/MM/yyyy"
-                                className="date-picker"
-                            />
-                        </Box>
-                    </Box>
-                </Grid>
-
-                {/* Guests */}
-                <Grid item xs={12} sm={6} md={2.4}>
-                    <Box display="flex" alignItems="center" onClick={handleGuestsClick} sx={{ cursor: 'pointer' }}>
-                        <Person sx={{ color: 'green', mr: 1 }} />
-                        <Box>
-                            <Typography variant="caption" color="textSecondary">
-                                Guests
-                            </Typography>
-                            <Typography fontWeight="bold">{totalGuests}</Typography>
-                        </Box>
-                    </Box>
-                    <Popover
-                        open={open}
-                        anchorEl={anchorEl}
-                        onClose={handleGuestsClose}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                    >
-                        <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
-                            {/* Adult */}
-                            <Box display="flex" alignItems="center" justifyContent="space-between">
-                                <Typography>Adult</Typography>
-                                <Box display="flex" alignItems="center">
-                                    <IconButton onClick={() => updateGuests('adult', false)}>
-                                        <Remove />
-                                    </IconButton>
-                                    <Typography sx={{ mx: 1 }}>{guests.adult}</Typography>
-                                    <IconButton onClick={() => updateGuests('adult', true)}>
-                                        <Add />
-                                    </IconButton>
-                                </Box>
-                            </Box>
-
-                            {/* Youth */}
-                            <Box display="flex" alignItems="center" justifyContent="space-between">
-                                <Typography>Youth</Typography>
-                                <Box display="flex" alignItems="center">
-                                    <IconButton onClick={() => updateGuests('youth', false)}>
-                                        <Remove />
-                                    </IconButton>
-                                    <Typography sx={{ mx: 1 }}>{guests.youth}</Typography>
-                                    <IconButton onClick={() => updateGuests('youth', true)}>
-                                        <Add />
-                                    </IconButton>
-                                </Box>
-                            </Box>
-
-                            {/* Children */}
-                            <Box display="flex" alignItems="center" justifyContent="space-between">
-                                <Typography>Children</Typography>
-                                <Box display="flex" alignItems="center">
-                                    <IconButton onClick={() => updateGuests('children', false)}>
-                                        <Add />
-                                    </IconButton>
-                                    <Typography sx={{ mx: 1 }}>{guests.children}</Typography>
-                                    <IconButton onClick={() => updateGuests('children', true)}>
-                                        <Add />
-                                    </IconButton>
-                                </Box>
-                            </Box>
-
-                            {/* Apply Button */}
-                            <Button
-                                variant="contained"
-                                onClick={handleGuestsClose}
-                                sx={{
-                                    backgroundColor: 'green',
-                                    fontWeight: 'bold',
-                                    textTransform: 'none',
-                                    '&:hover': { backgroundColor: 'darkgreen' },
-                                }}
-                            >
-                                Apply
-                            </Button>
-                        </Box>
-                    </Popover>
-                </Grid>
-
-                {/* Search */}
-                <Grid item xs={12} sm={6} md={2.4}>
+                <Box sx={{ width: { xs: '100%', md: '250px' }, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Button
                         variant="contained"
+                        size="medium"
                         fullWidth
-                        sx={{
-                            backgroundColor: 'green',
-                            height: '100%',
-                            borderRadius: 2,
-                            fontWeight: 'bold',
-                            textTransform: 'none',
-                            '&:hover': { backgroundColor: 'darkgreen' },
-                        }}
                         startIcon={<Search />}
+                        sx={{
+                            mt: {
+                                md: 3,
+                                sx: 2
+                            },
+                            backgroundColor: '#4CAF50',
+                            '&:hover': { backgroundColor: '#388E3C' },
+                        }}
                     >
                         Search
                     </Button>
-                </Grid>
-            </Grid>
-        </Box>
+                </Box>
+            </Box>
+            <Box
+                sx={{
+                    height: {
+                        md: '70vh',
+                        xs: 'auto'
+                    },
+                    backgroundImage: `url(${worldImage})`, // Replace with your image path or URL
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    display: 'flex', justifyContent: 'center',
+                    mt: 3
+                }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: { md: '20px', xs: '10px' }, alignItems: 'center' }}>
+                    <Button sx={{ backgroundColor: '#E5EEE4', color: '#388E3C', fontWeight: 'bold', padding: '10px 20px' }}>Award Winning</Button>
+                    <Typography sx={{
+                        fontSize: {
+                            md: '30px',
+                            xs: '20px'
+                        }
+                    }} color='#388E3C' fontWeight='900' textAlign='center'>
+                        Azad Kashmir Travel & Tour Agency in Pakistan
+                    </Typography>
+                    <Typography sx={{
+                        padding: {
+                            md: '10px 200px',
+                            xs: '10px'
+                        }
+                    }} color='#898080' textAlign='center' >
+                        Planning a trip to Azad Kashmir can be daunting, especially when searching for trustworthy travel services, budget-friendly packages, and easy transportation. Many travelers face challenges with unreliable tour agencies, unpredictable weather, and inadequate guidance, making it tough to appreciate the region’s stunning landscapes, from Neelum Valley to Ratti Gali Lake. At Al Rehman Tour, we specialize in offering customized, affordable, and expertly guided tours to ensure a smooth travel experience with safe transportation, high-rated accommodations, and personalized itineraries. Whether you're a honeymooner, a family traveler, or an adventure seeker, we provide the best Azad Kashmir tour services in Pakistan, making your journey enjoyable, memorable, and hassle-free.
+                    </Typography>
+                </Box>
+            </Box>
+
+            <Box sx={{
+                backgroundColor: '#f5f5f5',
+                py: 6,
+                px: 2,
+                overflow: 'hidden'
+            }}>
+                <Slider {...settings}>
+                    {[...activities, ...activities].map((item, index) => (
+                        <Box key={index} sx={{
+                            px: {
+                                md: 2,
+                                xs: 0
+                            }
+                        }}>
+                            <Box sx={{
+                                backgroundColor: 'white',
+                                borderRadius: 4,
+                                overflow: 'hidden',
+                                boxShadow: 3,
+                                height: '300px',
+                                position: 'relative',
+                                margin: '10px',
+                                transition: 'all 0.3s ease',
+                                '&:hover': {
+                                    transform: 'scale(1.05)',
+                                    boxShadow: 6,
+                                    '& .content-overlay': {
+                                        opacity: 1,
+                                        background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)'
+                                    },
+                                    '& .activity-emoji': {
+                                        transform: 'translateY(-20px)'
+                                    }
+                                }
+                            }}>
+                                {/* Background Image */}
+                                <Box sx={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    backgroundImage: `url(${item.image})`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    zIndex: 1
+                                }} />
+
+                                {/* Content Overlay */}
+                                <Box className="content-overlay" sx={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'flex-end',
+                                    p: 2,
+                                    color: 'white',
+                                    zIndex: 2,
+                                    opacity: 0.7,
+                                    transition: 'all 0.3s ease'
+                                }}>
+                                    <Typography variant="h5" sx={{
+                                        fontWeight: 'bold',
+                                        mb: 1,
+                                        textTransform: 'uppercase',
+                                        lineHeight: 1.2
+                                    }}>
+                                        {item.title.split(' ').map((word, i) => (
+                                            <Box key={i} component="span" display="block">{word}</Box>
+                                        ))}
+                                    </Typography>
+
+                                    <Typography variant="body1" sx={{
+                                        fontSize: '1.1rem',
+                                        lineHeight: 1.4
+                                    }}>
+                                        {item.description}
+                                    </Typography>
+                                </Box>
+
+                                {/* Emoji Badge */}
+                                <Box className="activity-emoji" sx={{
+                                    position: 'absolute',
+                                    top: 20,
+                                    right: 20,
+                                    backgroundColor: 'rgba(255,255,255,0.9)',
+                                    width: 60,
+                                    height: 60,
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    zIndex: 3,
+                                    transition: 'all 0.3s ease',
+                                    boxShadow: 2
+                                }}>
+                                    <Typography variant="h4" sx={{ lineHeight: 1 }}>
+                                        {item.emoji}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Box>
+                    ))}
+                </Slider>
+            </Box>
+        </>
     );
 }
