@@ -92,7 +92,7 @@ export default function ResponsiveBookingFilter() {
                     boxShadow: 3,
                     p: 2,
                     mx: 'auto',
-                    maxWidth: '1000px',
+                    maxWidth: '1200px',
                     marginTop: '20px',
                     display: 'flex',
                     gap: '10px',
@@ -152,7 +152,7 @@ export default function ResponsiveBookingFilter() {
                     <Typography variant="caption" color="textSecondary">
                         Guests
                     </Typography>
-                    <TextField placeholder='How many guests you are ..?' type='number' size='small' />
+                    <TextField placeholder='Number of guests' type='number' size='small' />
                 </Box>
                 <Box sx={{ width: { xs: '100%', md: '250px' }, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Button
@@ -347,6 +347,24 @@ export default function ResponsiveBookingFilter() {
                         <Typography color='#2B7522' fontSize='30px' fontWeight='900'>
                             Al-Rehman Tours for Your Kashmir Adventure?
                         </Typography>
+                        <Box sx={{ display: 'flex', gap: '10px' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', width: '100px', backgroundColor: '#e5eee4', borderRadius: '50px' }}>
+                                <VerifiedUserIcon sx={{ fontSize: '60px', color: '#2b7522' }} />
+                            </Box>
+                            <Box>
+                                <Typography variant='h6' color='#2b7522' fontWeight='bold'>Expertise and Local Knowledge</Typography>
+                                <Typography color='gray' width='550px'>Our team of experienced guides and Kashmir locals ensures you explore hidden gems and authentic experiences that other tourists miss.</Typography>
+                            </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', gap: '10px' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', width: '100px', backgroundColor: '#e5eee4', borderRadius: '50px' }}>
+                                <VerifiedUserIcon sx={{ fontSize: '60px', color: '#2b7522' }} />
+                            </Box>
+                            <Box>
+                                <Typography variant='h6' color='#2b7522' fontWeight='bold'>Expertise and Local Knowledge</Typography>
+                                <Typography color='gray' width='550px'>Our team of experienced guides and Kashmir locals ensures you explore hidden gems and authentic experiences that other tourists miss.</Typography>
+                            </Box>
+                        </Box>
                         <Box sx={{ display: 'flex', gap: '10px' }}>
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', width: '100px', backgroundColor: '#e5eee4', borderRadius: '50px' }}>
                                 <VerifiedUserIcon sx={{ fontSize: '60px', color: '#2b7522' }} />
